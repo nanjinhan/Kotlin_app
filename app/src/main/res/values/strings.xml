@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">빌드북</string>
+    <string name="splash_title">빌드북</string>
+    <string name="splash_overline">IT · DEV · MAKER</string>
+    <string name="welcome_title">빌드북에 오신 것을 환영합니다</string>
+    <string name="welcome_subtitle">개발자와 메이커를 위한 IT 전문 서점</string>
+    <string name="btn_book_list">도서 목록 보기</string>
+    <string name="drawer_open">메뉴 열기</string>
+    <string name="drawer_close">메뉴 닫기</string>
+    <string name="nav_home">홈</string>
+    <string name="nav_book_list">도서 목록</string>
+    <string name="menu_home">홈으로</string>
+    <string name="menu_info">앱 정보</string>
+</resources>

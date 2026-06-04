@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 스플래시 재디자인: 딥그린 배경을 버리고 크림 배경 위에 워드마크만 남김.
+     '여백' 원칙대로 화면을 비워 로고 하나에 시선이 모이게 한 미니멀 시작 화면. -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cream">
+
+    <!-- 세로 가운데로 묶는 체인: 오버라인 → 로고 → 구분선 → 부제 -->
+
+    <!-- 작은 오버라인 텍스트: 글자 사이를 넓혀(letterSpacing) 고급스러운 헤더 느낌 -->
+    <TextView
+        android:id="@+id/tvSplashOverline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/splash_overline"
+        android:textColor="@color/text_gray"
+        android:textSize="12sp"
+        android:letterSpacing="0.3"
+        app:layout_constraintBottom_toTopOf="@id/tvSplashTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginBottom="16dp" />
+
+    <!-- 메인 워드마크: 딥그린, 굵게, 글자 살짝 좁혀(letterSpacing 음수) 단단한 느낌 -->
+    <TextView
+        android:id="@+id/tvSplashTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/splash_title"
+        android:textColor="@color/deep_green"
+        android:textSize="52sp"
+        android:textStyle="bold"
+        android:letterSpacing="-0.02"
+        app:layout_constraintBottom_toTopOf="@id/splashDivider"
+        app:layout_constraintTop_toBottomOf="@id/tvSplashOverline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 짧은 구분선: 로고와 부제 사이의 작은 액센트 (딥그린 단일색 원칙) -->
+    <View
+        android:id="@+id/splashDivider"
+        android:layout_width="40dp"
+        android:layout_height="3dp"
+        android:layout_marginVertical="16dp"
+        android:background="@color/deep_green"
+        app:layout_constraintBottom_toTopOf="@id/tvSplashSubtitle"
+        app:layout_constraintTop_toBottomOf="@id/tvSplashTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 부제: 보조 정보라 회색·작게 (타이포 위계) -->
+    <TextView
+        android:id="@+id/tvSplashSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_subtitle"
+        android:textColor="@color/text_gray"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/splashDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/cream">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/deep_green"
+            app:title="@string/app_name"
+            app:titleTextColor="@color/cream" />
+
+        <!-- 본문: '여백' 원칙대로 좌우 패딩 32dp, 위에서부터 충분히 띄워 시선을 모음 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="@dimen/space_xl"
+            android:paddingTop="@dimen/space_section">
+
+            <!-- 로고: 가장 큰 시각 위계. 딥그린·굵게·글자 좁힘 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_section"
+                android:text="@string/splash_title"
+                android:textColor="@color/deep_green"
+                android:textSize="46sp"
+                android:textStyle="bold"
+                android:letterSpacing="-0.02" />
+
+            <!-- 환영 문구: 제목급. 본문보다 굵고 크게 -->
+            <TextView
+                android:id="@+id/tvWelcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_lg"
+                android:text="@string/welcome_title"
+                android:textColor="@color/text_dark"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- 부제: 회색·작게 (위계상 가장 약함) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_sm"
+                android:text="@string/welcome_subtitle"
+                android:textColor="@color/text_gray"
+                android:textSize="14sp" />
+
+            <!-- 행동 버튼: '단일 액센트' — 화면에서 유일하게 딥그린으로 칠해 클릭 유도 -->
+            <Button
+                android:id="@+id/btnBookList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_section"
+                android:paddingHorizontal="@dimen/space_xl"
+                android:paddingVertical="@dimen/space_sm"
+                android:text="@string/btn_book_list"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/deep_green" />
+
+            <!-- 마지막 본 도서: 부가 정보라 가장 약한 위계(회색·작게) -->
+            <TextView
+                android:id="@+id/tvLastBook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_lg"
+                android:textColor="@color/text_gray"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/cream"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

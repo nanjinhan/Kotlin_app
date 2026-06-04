@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cream">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/deep_green"
+        app:titleTextColor="@color/cream" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="@dimen/space_xl"
+            android:paddingTop="@dimen/space_section"
+            android:paddingBottom="@dimen/space_xl">
+
+            <!-- 표지 받침대: 상세에서도 표지에만 그림자 1개를 줘 책이 떠 보이게 함 -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="150dp"
+                android:layout_height="215dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp"
+                app:cardBackgroundColor="@color/white">
+
+                <TextView
+                    android:id="@+id/tvCover"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="14dp"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 제목: 위계 1순위 -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_section"
+                android:gravity="center"
+                android:textColor="@color/text_dark"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:letterSpacing="-0.01" />
+
+            <!-- 저자: 회색·작게 -->
+            <TextView
+                android:id="@+id/tvAuthor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_sm"
+                android:gravity="center"
+                android:textColor="@color/text_gray"
+                android:textSize="15sp" />
+
+            <!-- 가격: 딥그린 강조 -->
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_md"
+                android:gravity="center"
+                android:textColor="@color/deep_green"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- 출판일: 보조 정보 -->
+            <TextView
+                android:id="@+id/tvPubDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:textColor="@color/text_gray"
+                android:textSize="13sp" />
+
+            <!-- 얇은 구분선 (그림자 대신 hairline으로 영역 구분) -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/space_lg"
+                android:background="@color/hairline" />
+
+            <!-- 책 소개: 본문. 줄 간격을 넉넉히 줘 읽기 편하게 -->
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_lg"
+                android:textColor="@color/text_dark"
+                android:textSize="15sp"
+                android:lineSpacingExtra="6dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
