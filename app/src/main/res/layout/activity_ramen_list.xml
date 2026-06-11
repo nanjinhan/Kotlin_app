@@ -4,23 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/cream">
+    android:background="@color/bg">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/deep_green"
-        app:titleTextColor="@color/cream" />
+        android:background="@color/surface"
+        app:titleTextColor="@color/text_white" />
 
-    <!-- 목록 좌우/상하 여백을 줘 카드가 화면에 붙지 않고 떠 보이게 함 -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingHorizontal="@dimen/space_md"
-        android:paddingTop="@dimen/space_sm"
+        android:padding="8dp"
         android:clipToPadding="false" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        app:itemIconTint="@color/accent"
+        app:itemTextColor="@color/text_white"
+        app:menu="@menu/bottom_nav_menu" />
 </LinearLayout>

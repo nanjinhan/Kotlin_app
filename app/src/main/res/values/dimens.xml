@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 8의 배수 간격 체계. '여백' 원칙을 토큰으로 정리해 화면마다 일관된 리듬을 줌 -->
     <dimen name="space_sm">12dp</dimen>
     <dimen name="space_md">16dp</dimen>
     <dimen name="space_lg">24dp</dimen>
     <dimen name="space_xl">32dp</dimen>
-    <dimen name="space_section">48dp</dimen>
 </resources>

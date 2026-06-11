@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/nav_home"
-        android:icon="@android:drawable/ic_menu_view"
-        android:title="@string/nav_home" />
-    <item
-        android:id="@+id/nav_book_list"
-        android:icon="@android:drawable/ic_menu_agenda"
-        android:title="@string/nav_book_list" />
+    <item android:id="@+id/d_home" android:icon="@android:drawable/ic_menu_view" android:title="@string/nav_home" />
+    <item android:id="@+id/d_dex" android:icon="@android:drawable/ic_menu_agenda" android:title="@string/nav_dex" />
+    <item android:id="@+id/d_fav" android:icon="@android:drawable/btn_star_big_on" android:title="@string/nav_fav" />
 </menu>

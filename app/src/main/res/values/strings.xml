@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">빌드북</string>
-    <string name="splash_title">빌드북</string>
-    <string name="splash_overline">IT · DEV · MAKER</string>
-    <string name="welcome_title">빌드북에 오신 것을 환영합니다</string>
-    <string name="welcome_subtitle">개발자와 메이커를 위한 IT 전문 서점</string>
-    <string name="btn_book_list">도서 목록 보기</string>
+    <string name="app_name">라면도감</string>
+    <string name="splash_title">라면도감</string>
+    <string name="splash_sub">RAMEN DEX</string>
+    <string name="splash_tip">TIP. 불닭이 매울 땐 우유와 함께!</string>
+    <string name="welcome_title">오늘 뭐 먹지?</string>
+    <string name="welcome_sub">맛있는 라면을 도감에서 골라보세요</string>
+    <string name="btn_open_dex">라면 도감 열기</string>
     <string name="drawer_open">메뉴 열기</string>
     <string name="drawer_close">메뉴 닫기</string>
     <string name="nav_home">홈</string>
-    <string name="nav_book_list">도서 목록</string>
-    <string name="menu_home">홈으로</string>
+    <string name="nav_dex">도감</string>
+    <string name="nav_fav">찜</string>
     <string name="menu_info">앱 정보</string>
+    <string name="title_dex">라면 도감</string>
+    <string name="title_fav">찜한 라면</string>
 </resources>

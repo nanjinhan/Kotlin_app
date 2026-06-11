@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 색은 크림+딥그린 유지. '단일 액센트' 원칙: 딥그린만 행동/강조 색으로 쓰고 나머지는 무채색 -->
-    <color name="cream">#F5F0E1</color>        <!-- 메인 배경 -->
-    <color name="cream_dark">#EAE3CF</color>   <!-- 살짝 어두운 크림 (구분용) -->
-    <color name="deep_green">#2E5D4B</color>   <!-- 액센트: 버튼/툴바/가격/강조 전용 -->
-    <color name="deep_green_dark">#1F4A3A</color>
-    <color name="accent">#3A7D6B</color>
-    <color name="text_dark">#222222</color>    <!-- 제목/본문 (순검정 대신 살짝 부드럽게) -->
-    <color name="text_gray">#8A8579</color>    <!-- 저자/보조 텍스트 (위계상 약하게) -->
+    <color name="bg">#FFFFFF</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface2">#FFF3EC</color>
+    <color name="accent">#FF6B2C</color>
+    <color name="accent_dark">#E2551A</color>
+    <color name="text_white">#222222</color>
+    <color name="text_gray">#8A8A8A</color>
+    <color name="hairline">#ECE6DF</color>
     <color name="white">#FFFFFF</color>
-    <color name="hairline">#E2DCCB</color>     <!-- 카드 얇은 테두리 색 (그림자 대신 hairline 원칙) -->
 </resources>

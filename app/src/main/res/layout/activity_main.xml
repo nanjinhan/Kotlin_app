@@ -11,78 +11,87 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/cream">
+        android:background="@color/bg">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/deep_green"
+            android:background="@color/surface"
             app:title="@string/app_name"
-            app:titleTextColor="@color/cream" />
+            app:titleTextColor="@color/text_white" />
 
-        <!-- 본문: '여백' 원칙대로 좌우 패딩 32dp, 위에서부터 충분히 띄워 시선을 모음 -->
+        <!-- 본문 -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:paddingHorizontal="@dimen/space_xl"
-            android:paddingTop="@dimen/space_section">
+            android:padding="@dimen/space_lg">
 
-            <!-- 로고: 가장 큰 시각 위계. 딥그린·굵게·글자 좁힘 -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_section"
-                android:text="@string/splash_title"
-                android:textColor="@color/deep_green"
-                android:textSize="46sp"
-                android:textStyle="bold"
-                android:letterSpacing="-0.02" />
+            <!-- 큰 배너 카드 (그라데이션) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="@dimen/space_md"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="8dp">
 
-            <!-- 환영 문구: 제목급. 본문보다 굵고 크게 -->
-            <TextView
-                android:id="@+id/tvWelcome"
-                android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/splash_card_bg"
+                    android:padding="@dimen/space_lg">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/welcome_title"
+                        android:textColor="@color/white"
+                        android:textSize="26sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/welcome_sub"
+                        android:textColor="#DDFFFFFF"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 도감 열기 버튼 (단일 액센트) -->
+            <Button
+                android:id="@+id/btnOpenDex"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_lg"
-                android:text="@string/welcome_title"
-                android:textColor="@color/text_dark"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <!-- 부제: 회색·작게 (위계상 가장 약함) -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_sm"
-                android:text="@string/welcome_subtitle"
-                android:textColor="@color/text_gray"
-                android:textSize="14sp" />
-
-            <!-- 행동 버튼: '단일 액센트' — 화면에서 유일하게 딥그린으로 칠해 클릭 유도 -->
-            <Button
-                android:id="@+id/btnBookList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_section"
-                android:paddingHorizontal="@dimen/space_xl"
-                android:paddingVertical="@dimen/space_sm"
-                android:text="@string/btn_book_list"
+                android:paddingVertical="14dp"
+                android:text="@string/btn_open_dex"
                 android:textColor="@color/white"
                 android:textAllCaps="false"
-                android:backgroundTint="@color/deep_green" />
+                android:backgroundTint="@color/accent" />
 
-            <!-- 마지막 본 도서: 부가 정보라 가장 약한 위계(회색·작게) -->
+            <!-- 마지막으로 본 라면 (SharedPreferences) -->
             <TextView
-                android:id="@+id/tvLastBook"
+                android:id="@+id/tvLast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_lg"
                 android:textColor="@color/text_gray"
                 android:textSize="13sp" />
         </LinearLayout>
+
+        <!-- 하단 탭바 -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/surface"
+            app:itemIconTint="@color/accent"
+            app:itemTextColor="@color/text_white"
+            app:menu="@menu/bottom_nav_menu" />
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -90,8 +99,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/cream"
-        app:headerLayout="@layout/nav_header"
+        android:background="@color/surface"
+        app:itemTextColor="@color/text_white"
+        app:itemIconTint="@color/accent"
         app:menu="@menu/drawer_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

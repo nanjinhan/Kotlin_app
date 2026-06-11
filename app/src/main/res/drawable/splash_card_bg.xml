@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <!-- 라면 레드 → 보라 대각선 그라데이션 (포켓몬 카드 느낌) -->
+    <gradient android:startColor="#E23B2E" android:endColor="#7B2D7E" android:angle="135" />
+    <corners android:radius="24dp" />
+</shape>

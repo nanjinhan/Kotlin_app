@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- NoActionBar: 기본 액션바를 끄고 우리가 만든 Toolbar를 직접 사용 (14장) -->
-    <style name="Theme.BuildBook" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/deep_green</item>
-        <item name="colorPrimaryVariant">@color/deep_green_dark</item>
-        <item name="colorOnPrimary">@color/cream</item>
+    <style name="Theme.RamenDex" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/accent</item>
+        <item name="colorPrimaryVariant">@color/accent_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/accent</item>
-        <item name="colorOnSecondary">@color/white</item>
-        <item name="android:statusBarColor">@color/deep_green_dark</item>
-        <item name="android:windowBackground">@color/cream</item>
+        <item name="android:statusBarColor">@color/accent_dark</item>
+        <item name="android:windowBackground">@color/bg</item>
     </style>
 </resources>
