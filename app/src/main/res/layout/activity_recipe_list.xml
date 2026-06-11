@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  activity_recipe_list.xml — 레시피 게시판 화면 (디자인 정리: 주황 면적 축소판)
+  큰 면적(툴바·검색창)은 흰색/연회색, 주황은 글자·아이콘·FAB·탭 선택 같은 포인트로만.
+  인기검색어는 큰 버튼 3개 → 작은 칩 한 줄로 축소. (id·기능은 그대로 유지)
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg">
+
+    <!-- 툴바: 주황 → 흰 배경 + 검정 글씨 (주황 떡칠 제거) -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/bg"
+        app:titleTextColor="@color/text_white" />
+
+    <!-- 검색창: 주황 배경 → 흰 배경 + 연회색 테두리 + 돋보기 아이콘 -->
+    <EditText
+        android:id="@+id/etSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_md"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/input_box_bg"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="11dp"
+        android:hint="라면 이름으로 검색 (예: 짜파게티)"
+        android:textColorHint="@color/text_gray"
+        android:textColor="@color/text_white"
+        android:textSize="14sp"
+        android:inputType="text"
+        android:imeOptions="actionSearch"
+        android:maxLines="1"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:drawablePadding="8dp" />
+
+    <!-- 인기 검색어: 큰 버튼 3개 → 작은 칩 한 줄로 축소 (검색창 비었을 때만 보임) -->
+    <LinearLayout
+        android:id="@+id/popularBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/space_md"
+        android:paddingTop="12dp"
+        android:paddingBottom="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="인기 검색어"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp" />
+
+        <!-- 칩 3개를 가로 한 줄로 작게 배치 (글자/클릭은 setupPopular 에서 채움) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView android:id="@+id/kw1" style="@style/KwChip" android:layout_marginEnd="6dp" />
+            <TextView android:id="@+id/kw2" style="@style/KwChip" android:layout_marginEnd="6dp" />
+            <TextView android:id="@+id/kw3" style="@style/KwChip" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 목록 영역: 남은 공간 전부 차지. 목록/빈문구/글쓰기버튼을 겹쳐 둠 -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:clipToPadding="false" />
+
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="레시피가 없어요. 직접 추가해보세요!"
+            android:textColor="@color/text_gray"
+            android:visibility="gone" />
+
+        <!-- 글쓰기 FAB: 주황 유지 (작은 면적 + 행동 버튼이라 포인트로 적절) -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabWrite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="20dp"
+            android:src="@android:drawable/ic_input_add"
+            app:tint="@color/white"
+            app:backgroundTint="@color/accent" />
+    </FrameLayout>
+
+    <!-- 하단탭: 흰 배경 + 선택만 주황 -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg"
+        app:itemIconTint="@color/accent"
+        app:itemTextColor="@color/text_white"
+        app:menu="@menu/bottom_nav_menu" />
+</LinearLayout>

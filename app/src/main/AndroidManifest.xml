@@ -22,5 +22,10 @@
         <activity android:name=".FavoriteActivity" android:exported="false" android:launchMode="singleTop" />
         <activity android:name=".RamenDetailActivity" android:exported="false" />
 
+        <!-- 레시피 게시판 관련 화면. 게시판은 singleTop 으로 탭 이동 시 쌓이지 않게 함 -->
+        <activity android:name=".RecipeListActivity" android:exported="false" android:launchMode="singleTop" />
+        <activity android:name=".RecipeWriteActivity" android:exported="false" />
+        <activity android:name=".RecipeDetailActivity" android:exported="false" />
+
     </application>
 </manifest>

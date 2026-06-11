@@ -9,4 +9,6 @@
     <color name="text_gray">#8A8A8A</color>
     <color name="hairline">#ECE6DF</color>
     <color name="white">#FFFFFF</color>
+    <color name="card_thumb">#F2F2F2</color>   <!-- 썸네일/플레이스홀더용 연회색 -->
+    <color name="input_border">#E3E3E3</color>  <!-- 입력칸·칩 테두리용 연회색 -->
 </resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  activity_recipe_write.xml — 레시피 작성(입력 폼) 화면.
+  ScrollView 로 감싸서 키보드가 올라오거나 내용이 길어도 스크롤되게 함.
+  입력칸 스타일(InputBox / InputBoxMulti)은 styles.xml 에 정의돼 있음.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg">
+
+    <!-- 상단 툴바("레시피 작성" + 뒤로가기 화살표) -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/bg"
+        app:titleTextColor="@color/text_white" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_lg">
+
+            <!-- 한 줄 입력칸들 (필수: 라면 이름·제목) -->
+            <EditText android:id="@+id/etRamen" style="@style/InputBox" android:hint="라면 이름 (예: 짜파게티)" />
+            <EditText android:id="@+id/etTitle" style="@style/InputBox" android:hint="레시피 제목" />
+            <EditText android:id="@+id/etAuthor" style="@style/InputBox" android:hint="작성자 (비우면 익명)" />
+
+            <!-- 여러 줄 입력칸들 (재료/조리법/팁) -->
+            <EditText android:id="@+id/etIngredients" style="@style/InputBoxMulti" android:hint="재료" />
+            <EditText android:id="@+id/etSteps" style="@style/InputBoxMulti" android:hint="끓이는 법" />
+            <EditText android:id="@+id/etTip" style="@style/InputBoxMulti" android:hint="나만의 팁" />
+
+            <!-- 저장 버튼 → RecipeWriteActivity 에서 검사 후 저장 -->
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_lg"
+                android:paddingVertical="14dp"
+                android:text="레시피 등록"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/accent" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

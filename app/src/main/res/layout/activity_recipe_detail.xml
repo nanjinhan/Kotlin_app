@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  activity_recipe_detail.xml — 레시피 상세 화면.
+  구성: 툴바 / 대표이미지 / 제목·#라면·작성자 / (재료·끓이는법·팁 섹션) / 삭제 버튼.
+  섹션 제목/본문 스타일(SecTitle / SecBody)은 라면도감에서 쓰던 styles.xml 것을 재사용.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg">
+
+    <!-- 상단 툴바(제목엔 레시피 제목이 표시됨) + 뒤로가기 -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/bg"
+        app:titleTextColor="@color/text_white" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_lg">
+
+            <!-- 대표 이미지(없으면 코드에서 연한 주황 배경으로 채움) -->
+            <ImageView
+                android:id="@+id/ivImage"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:scaleType="centerCrop" />
+
+            <!-- 제목 -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_md"
+                android:textColor="@color/text_white"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <!-- #라면이름 -->
+            <TextView
+                android:id="@+id/tvRamen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/accent"
+                android:textSize="14sp" />
+
+            <!-- by 작성자 -->
+            <TextView
+                android:id="@+id/tvAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/text_gray"
+                android:textSize="13sp" />
+
+            <!-- 재료 섹션 -->
+            <TextView style="@style/SecTitle" android:text="재료" />
+            <TextView android:id="@+id/tvIngredients" style="@style/SecBody" />
+
+            <!-- 끓이는 법 섹션 -->
+            <TextView style="@style/SecTitle" android:text="끓이는 법" />
+            <TextView android:id="@+id/tvSteps" style="@style/SecBody" />
+
+            <!-- 나만의 팁 섹션 -->
+            <TextView style="@style/SecTitle" android:text="나만의 팁" />
+            <TextView android:id="@+id/tvTip" style="@style/SecBody" />
+
+            <!-- 삭제 버튼 → 확인 다이얼로그 후 삭제 -->
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_lg"
+                android:paddingVertical="12dp"
+                android:text="레시피 삭제"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/accent_dark" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
