@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/d_home" android:icon="@android:drawable/ic_menu_view" android:title="@string/nav_home" />
-    <item android:id="@+id/d_dex" android:icon="@android:drawable/ic_menu_agenda" android:title="@string/nav_dex" />
-    <item android:id="@+id/d_fav" android:icon="@android:drawable/btn_star_big_on" android:title="@string/nav_fav" />
+    <group android:id="@+id/g_main">
+        <item android:id="@+id/d_home" android:icon="@android:drawable/ic_menu_view" android:title="홈" />
+        <item android:id="@+id/d_dex" android:icon="@android:drawable/ic_menu_agenda" android:title="라면 도감" />
+        <item android:id="@+id/d_recipe" android:icon="@android:drawable/ic_menu_edit" android:title="레시피 게시판" />
+        <item android:id="@+id/d_fav" android:icon="@android:drawable/btn_star_big_on" android:title="찜한 라면" />
+    </group>
+    <item android:title="정보">
+        <menu>
+            <item android:id="@+id/d_guide" android:icon="@android:drawable/ic_menu_info_details" android:title="맵기 색 안내" />
+            <item android:id="@+id/d_info" android:icon="@android:drawable/ic_menu_help" android:title="앱 정보" />
+        </menu>
+    </item>
 </menu>

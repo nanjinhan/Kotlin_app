@@ -11,97 +11,185 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/bg">
+        android:background="@color/cream_bg">
 
+        <!-- 툴바: 흰 배경, 라면도감 + 검색/그리드 아이콘 느낌 -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/bg"
+            android:background="@color/cream_bg"
             app:title="@string/app_name"
             app:titleTextColor="@color/text_white" />
 
-        <!-- 본문 -->
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="@dimen/space_lg">
+            android:scrollbars="none">
 
-            <!-- 큰 배너 카드 (그라데이션) -->
-            <androidx.cardview.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_marginTop="@dimen/space_md"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="8dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
 
+                <!-- 오늘의 추천 배너 -->
+                <RelativeLayout
+                    android:id="@+id/bannerBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/banner_bg">
+
+                    <!-- 배너 오른쪽 라면 이미지 -->
+                    <ImageView
+                        android:id="@+id/ivBanner"
+                        android:layout_width="180dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:scaleType="centerCrop" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/badge_red"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="5dp"
+                            android:text="@string/banner_badge"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvBannerName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/text_white"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvBannerDesc"
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:textColor="#7A6A5E"
+                            android:textSize="13sp"
+                            android:maxLines="2" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <!-- 인기 라면 헤더 -->
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/splash_card_bg"
-                    android:padding="@dimen/space_lg">
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/welcome_title"
-                        android:textColor="@color/white"
-                        android:textSize="26sp"
+                        android:text="@string/section_popular"
+                        android:textColor="@color/text_white"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvSeeAll"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:text="@string/welcome_sub"
-                        android:textColor="#DDFFFFFF"
-                        android:textSize="14sp" />
+                        android:layout_alignParentEnd="true"
+                        android:text="@string/see_all"
+                        android:textColor="@color/red_point"
+                        android:textSize="13sp" />
                 </RelativeLayout>
-            </androidx.cardview.widget.CardView>
 
-            <!-- 도감 열기 버튼 (단일 액센트) -->
-            <Button
-                android:id="@+id/btnOpenDex"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_lg"
-                android:paddingVertical="14dp"
-                android:text="@string/btn_open_dex"
-                android:textColor="@color/white"
-                android:textAllCaps="false"
-                android:backgroundTint="@color/accent" />
+                <!-- 인기 라면 가로 스크롤 -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/popularRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:paddingHorizontal="12dp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal" />
 
-            <!-- 마지막으로 본 라면 (SharedPreferences) -->
-            <TextView
-                android:id="@+id/tvLast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_lg"
-                android:textColor="@color/text_gray"
-                android:textSize="13sp" />
-        </LinearLayout>
+                <!-- 카테고리 아이콘 줄 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/card_round"
+                    android:padding="16dp"
+                    android:weightSum="5">
 
-        <!-- 하단 탭바 -->
+                    <LinearLayout android:id="@+id/cat1" style="@style/CatItem">
+                        <TextView style="@style/CatIcon" android:text="🌶️" />
+                        <TextView style="@style/CatLabel" android:text="매운맛" />
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/cat2" style="@style/CatItem">
+                        <TextView style="@style/CatIcon" android:text="🧀" />
+                        <TextView style="@style/CatLabel" android:text="치즈" />
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/cat3" style="@style/CatItem">
+                        <TextView style="@style/CatIcon" android:text="🦐" />
+                        <TextView style="@style/CatLabel" android:text="해물" />
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/cat4" style="@style/CatItem">
+                        <TextView style="@style/CatIcon" android:text="🥚" />
+                        <TextView style="@style/CatLabel" android:text="계란" />
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/cat5" style="@style/CatItem">
+                        <TextView style="@style/CatIcon" android:text="⭐" />
+                        <TextView style="@style/CatLabel" android:text="전체" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- 마지막으로 본 라면 -->
+                <TextView
+                    android:id="@+id/tvLast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/text_gray"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- 하단 탭 5개 -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/surface"
-            app:itemIconTint="@color/accent"
+            android:background="@color/card_white"
+            app:itemIconTint="@color/red_point"
             app:itemTextColor="@color/text_white"
             app:menu="@menu/bottom_nav_menu" />
     </LinearLayout>
 
+    <!-- 드로어 -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/surface"
+        android:background="@color/card_white"
         app:itemTextColor="@color/text_white"
-        app:itemIconTint="@color/accent"
+        app:itemIconTint="@color/red_point"
+        app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

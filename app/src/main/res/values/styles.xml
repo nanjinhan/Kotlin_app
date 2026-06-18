@@ -60,6 +60,35 @@
         <item name="android:paddingVertical">7dp</item>
     </style>
 
+    <!-- ▼ 메인 화면 카테고리 줄 스타일 (신규 추가) -->
+
+    <!-- 카테고리 아이템 (세로: 아이콘 + 라벨) -->
+    <style name="CatItem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="CatIcon">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@drawable/circle_cream</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="CatLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
     <!-- (구) 게시판 화면의 인기 검색어 버튼 (알약 배경 + 왼쪽 정렬 텍스트) — KwChip 으로 대체됨, 미사용 -->
     <style name="KwBtn">
         <item name="android:layout_width">match_parent</item>

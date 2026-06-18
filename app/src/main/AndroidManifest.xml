@@ -27,5 +27,8 @@
         <activity android:name=".RecipeWriteActivity" android:exported="false" />
         <activity android:name=".RecipeDetailActivity" android:exported="false" />
 
+        <!-- 마이페이지 (하단 탭 5번째). 탭 이동 시 쌓이지 않게 singleTop -->
+        <activity android:name=".MyPageActivity" android:exported="false" android:launchMode="singleTop" />
+
     </application>
 </manifest>

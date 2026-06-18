@@ -53,6 +53,7 @@ class FavoriteActivity : AppCompatActivity() {
                 R.id.nav_home -> { goTo(MainActivity::class.java); true }
                 R.id.nav_dex -> { goTo(RamenListActivity::class.java); true }
                 R.id.nav_recipe -> { goTo(RecipeListActivity::class.java); true } // 레시피 게시판으로 이동(신규)
+                R.id.nav_my -> { goTo(MyPageActivity::class.java); true }
                 else -> true
             }
         }

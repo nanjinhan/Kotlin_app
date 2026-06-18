@@ -124,6 +124,7 @@ class RecipeListActivity : AppCompatActivity() {
                 R.id.nav_home -> { goTo(MainActivity::class.java); true }
                 R.id.nav_dex -> { goTo(RamenListActivity::class.java); true }
                 R.id.nav_fav -> { goTo(FavoriteActivity::class.java); true }
+                R.id.nav_my -> { goTo(MyPageActivity::class.java); true }
                 else -> true
             }
         }

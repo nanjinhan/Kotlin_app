@@ -11,4 +11,11 @@
     <color name="white">#FFFFFF</color>
     <color name="card_thumb">#F2F2F2</color>   <!-- 썸네일/플레이스홀더용 연회색 -->
     <color name="input_border">#E3E3E3</color>  <!-- 입력칸·칩 테두리용 연회색 -->
+
+    <!-- ▼ 메인 화면 풀 업그레이드용 색 (신규 추가) -->
+    <color name="cream_bg">#FFF7F0</color>     <!-- 메인 배경: 아주 연한 크림 -->
+    <color name="card_white">#FFFFFF</color>
+    <color name="red_point">#E23B2E</color>    <!-- 시안의 빨강 포인트 -->
+    <color name="chip_spicy_bg">#FCE4E2</color> <!-- 매운맛 칩 연빨강 배경 -->
+    <color name="chip_mild_bg">#E8F2DC</color>  <!-- 순한맛 칩 연초록 배경 -->
 </resources>
