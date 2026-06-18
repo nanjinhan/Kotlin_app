@@ -45,9 +45,17 @@ class MainActivity : AppCompatActivity() {
         // "전체 보기" → 도감으로
         binding.tvSeeAll.setOnClickListener { startActivity(Intent(this, RamenListActivity::class.java)) }
 
-        // 카테고리 클릭 → 도감으로 이동 (간단히 전체 도감 열기)
-        val cats = listOf(binding.cat1, binding.cat2, binding.cat3, binding.cat4, binding.cat5)
-        cats.forEach { it.setOnClickListener { startActivity(Intent(this, RamenListActivity::class.java)) } }
+        // 카테고리 클릭 → 해당 분류로 거른 도감 열기 (아이콘 순서와 동일하게 매핑)
+        val cats = listOf(
+            binding.cat1 to "매운맛",
+            binding.cat2 to "치즈",
+            binding.cat3 to "해물",
+            binding.cat4 to "계란",
+            binding.cat5 to "전체"
+        )
+        cats.forEach { (view, category) ->
+            view.setOnClickListener { openCategory(category) }
+        }
 
         setupBottomNav()
     }
@@ -55,6 +63,13 @@ class MainActivity : AppCompatActivity() {
     private fun openDetail(name: String) {
         val i = Intent(this, RamenDetailActivity::class.java)
         i.putExtra("name", name)
+        startActivity(i)
+    }
+
+    // 카테고리 아이콘 → 그 분류로 거른 도감 목록 화면 열기
+    private fun openCategory(category: String) {
+        val i = Intent(this, RamenListActivity::class.java)
+        i.putExtra("category", category)
         startActivity(i)
     }
 
@@ -104,6 +119,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+
             R.id.action_info -> { showInfo(); true }
             else -> super.onOptionsItemSelected(item)
         }

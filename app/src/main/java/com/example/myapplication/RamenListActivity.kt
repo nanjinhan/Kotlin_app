@@ -18,12 +18,22 @@ class RamenListActivity : AppCompatActivity() {
         binding = ActivityRamenListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = getString(R.string.title_dex)
+
+        // 메인 카테고리 아이콘에서 넘어온 경우 그 분류로 거른다(없으면 전체).
+        val category = intent.getStringExtra("category")
+        val data = if (category == null || category == "전체") {
+            RamenData.list
+        } else {
+            RamenData.list.filter { it.matchesCategory(category) }
+        }
+        // 카테고리로 들어왔으면 제목을 "○○ 라면"으로, 아니면 기본 도감 제목으로
+        supportActionBar?.title =
+            if (category != null && category != "전체") "$category 라면" else getString(R.string.title_dex)
 
         // 2열 그리드로 배치(도감 느낌). 가로로 2칸씩 채우며 아래로 쌓인다.
         binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
-        // RamenData.list(전체 라면)를 어댑터에 넘기고, 카드를 누르면 상세로 이동
-        binding.recyclerView.adapter = RamenAdapter(RamenData.list) { ramen ->
+        // 위에서 고른 data 를 어댑터에 넘기고, 카드를 누르면 상세로 이동
+        binding.recyclerView.adapter = RamenAdapter(data) { ramen ->
             // 상세 화면으로 라면 '이름'을 Intent 에 담아 전달(받는 쪽에서 그 이름으로 데이터를 찾음)
             val intent = Intent(this, RamenDetailActivity::class.java)
             intent.putExtra("name", ramen.name)

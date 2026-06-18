@@ -46,14 +46,17 @@
                     <!-- 배너 오른쪽 라면 이미지 -->
                     <ImageView
                         android:id="@+id/ivBanner"
-                        android:layout_width="180dp"
+                        android:layout_width="150dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:scaleType="centerCrop" />
 
+                    <!-- 배너 왼쪽 텍스트: 이미지 왼쪽 영역으로 폭을 제한해 사진 위로 겹치지 않게 함 -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/ivBanner"
                         android:orientation="vertical"
                         android:gravity="center_vertical"
                         android:padding="20dp">
@@ -71,21 +74,24 @@
 
                         <TextView
                             android:id="@+id/tvBannerName"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:textColor="@color/text_white"
-                            android:textSize="24sp"
-                            android:textStyle="bold" />
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:maxLines="2"
+                            android:ellipsize="end" />
 
                         <TextView
                             android:id="@+id/tvBannerDesc"
-                            android:layout_width="160dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:textColor="#7A6A5E"
                             android:textSize="13sp"
-                            android:maxLines="2" />
+                            android:maxLines="2"
+                            android:ellipsize="end" />
                     </LinearLayout>
                 </RelativeLayout>
 
