@@ -28,5 +28,6 @@
         android:background="@color/surface"
         app:itemIconTint="@color/accent"
         app:itemTextColor="@color/text_white"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_menu" />
 </LinearLayout>

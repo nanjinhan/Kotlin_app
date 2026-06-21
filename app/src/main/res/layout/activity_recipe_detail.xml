@@ -64,6 +64,38 @@
                 android:textColor="@color/text_gray"
                 android:textSize="13sp" />
 
+            <!-- 추천 영역: 👍 버튼을 누르면 추천수가 1 오르고(추천), 다시 누르면 1 내려간다(취소).
+                 오른쪽 텍스트에는 "추천 2,085" 처럼 현재 추천수가 표시된다. -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_md"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- 추천 버튼: 누를 때마다 추천/취소가 번갈아 동작(코드에서 색·문구를 바꿈) -->
+                <Button
+                    android:id="@+id/btnRecommend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="👍 추천"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:minWidth="0dp"
+                    android:paddingHorizontal="20dp"
+                    android:backgroundTint="@color/accent" />
+
+                <!-- 현재 추천수 표시 (예: "추천 2,085") -->
+                <TextView
+                    android:id="@+id/tvRecommendCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:textColor="@color/accent"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
             <!-- 재료 섹션 -->
             <TextView style="@style/SecTitle" android:text="재료" />
             <TextView android:id="@+id/tvIngredients" style="@style/SecBody" />

@@ -25,7 +25,7 @@ object RecipeManager {
     private const val KEY = "recipes"
     // "예시 레시피를 이미 한 번 넣었는지" 표시하는 키 (true/false)
     // 예시 레시피 내용(사진 등)을 바꿨을 때 뒤 숫자를 올리면 다음 실행 시 예시가 한 번 다시 심긴다.
-    private const val SEEDED = "recipes_seeded_v2"
+    private const val SEEDED = "recipes_seeded_v3"
 
     /**
      * 앱을 처음 켰을 때 단 한 번만 예시 레시피 4개를 넣어 둔다.
@@ -53,7 +53,23 @@ object RecipeManager {
             Recipe(4, "안성탕면", "된장 안성탕면", "국물요정",
                 "안성탕면 1개, 된장 半스푼, 두부, 애호박",
                 "1) 물에 된장 반 스푼을 풀어 끓인다\n2) 면·스프를 넣는다\n3) 두부와 애호박을 넣고 4분",
-                "된장을 살짝 더하면 구수함이 두 배", "recipe_ansung_doenjang")
+                "된장을 살짝 더하면 구수함이 두 배", "recipe_ansung_doenjang"),
+            Recipe(5, "까르보불닭볶음면", "베이컨 까르보불닭", "고소대장",
+                "까르보불닭 1개, 베이컨 3줄, 슬라이스 치즈 1장, 우유 3스푼",
+                "1) 면을 5분 삶고 물을 버린다\n2) 베이컨을 바삭하게 굽는다\n3) 소스·크림분말에 우유를 넣고 비빈 뒤 베이컨·치즈를 올린다",
+                "우유를 조금 넣으면 더 부드럽고 매운맛도 잡힌다", "recipe_carbo_bacon"),
+            Recipe(6, "진짬뽕", "해물 가득 진짬뽕", "바다사나이",
+                "진짬뽕 1개, 오징어·홍합·새우 한 줌, 대파",
+                "1) 해물을 먼저 살짝 끓여 육수를 낸다\n2) 면·스프를 넣고 4분\n3) 대파를 올려 마무리",
+                "냉동 해물믹스를 쓰면 간편하게 시원한 국물이 난다", "recipe_jjambbong_seafood"),
+            Recipe(7, "팔도비빔면", "참치 비빔면", "여름입맛",
+                "팔도비빔면 1개, 참치캔 1/2, 깻잎, 계란후라이 1개",
+                "1) 면을 4~5분 삶고 찬물에 헹군다\n2) 비빔장과 참치를 넣고 비빈다\n3) 깻잎과 계란후라이를 올린다",
+                "참치 기름을 살짝 넣으면 고소함이 배가된다", "recipe_bibim_tuna"),
+            Recipe(8, "신라면", "신라면 라볶이", "분식왕",
+                "신라면 1개, 떡 한 줌, 어묵 2장, 설탕 1스푼",
+                "1) 물 500ml에 스프와 설탕을 풀어 끓인다\n2) 떡·어묵을 넣고 3분\n3) 면을 넣고 3분 더 끓여 졸인다",
+                "설탕 1스푼이 들어가야 분식집 라볶이 맛이 난다", "recipe_shin_rabokki")
         )
         // 예시 목록을 저장하고, "이제 넣었음(SEEDED=true)" 표시를 남긴다 → 다음부터는 위 if 에서 걸러짐
         save(ctx, samples)
@@ -122,4 +138,53 @@ object RecipeManager {
      * (상세 화면이 목록에서 받은 id 로 원본 글을 다시 찾아올 때 사용)
      */
     fun findById(ctx: Context, id: Long): Recipe? = getAll(ctx).find { it.id == id }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  레시피 "추천(좋아요)" 기능
+    //
+    //  ▸ 각 레시피마다 추천수를 따로 저장한다(키: "reco_count_<id>").
+    //  ▸ 사용자가 이미 추천을 눌렀는지도 저장한다(키: "reco_done_<id>").
+    //    → 버튼을 한 번 누르면 +1(추천), 다시 누르면 -1(취소)로 토글된다.
+    //  ▸ 레시피 본문(JSON)은 건드리지 않고 별도 키에만 저장 → 기존 저장 구조를 안 바꿔 안전하다.
+    // ─────────────────────────────────────────────────────────────────────
+    private const val KEY_RECO_COUNT = "reco_count_"   // 추천수 저장 키 접두사
+    private const val KEY_RECO_DONE = "reco_done_"     // "내가 추천했는지" 저장 키 접두사
+
+    /**
+     * 추천수의 "처음 시작값"을 레시피 id 로부터 만들어 낸다.
+     * - 아직 한 번도 추천이 눌리지 않은 글이라도 "추천 2,085" 처럼 그럴듯한 숫자가 보이게 하기 위함.
+     * - id 가 같으면 항상 같은 값이 나오므로(난수가 아님) 화면을 다시 봐도 숫자가 들쭉날쭉하지 않는다.
+     */
+    private fun baseCount(id: Long): Int = 800 + (Math.abs(id * 1234567L) % 4000L).toInt()
+
+    /** 현재 추천수를 돌려준다. (저장된 값이 없으면 위 baseCount 로 만든 시작값을 사용) */
+    fun getRecommendCount(ctx: Context, id: Long): Int {
+        val prefs = ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE)
+        return prefs.getInt(KEY_RECO_COUNT + id, baseCount(id))
+    }
+
+    /** 내가 이 레시피를 이미 추천했는지 여부(true/false). 버튼 모양/문구를 바꾸는 데 쓴다. */
+    fun hasRecommended(ctx: Context, id: Long): Boolean {
+        val prefs = ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE)
+        return prefs.getBoolean(KEY_RECO_DONE + id, false)
+    }
+
+    /**
+     * 추천 버튼을 눌렀을 때 호출.
+     * - 아직 추천 안 했으면 → 추천수 +1, "추천함"으로 표시
+     * - 이미 추천했으면   → 추천수 -1, 추천 취소
+     * 바뀐 추천수를 돌려준다(화면에 바로 반영하기 위함).
+     */
+    fun toggleRecommend(ctx: Context, id: Long): Int {
+        val prefs = ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE)
+        val done = prefs.getBoolean(KEY_RECO_DONE + id, false)
+        // 저장된 추천수가 없으면 시작값에서 출발
+        var count = prefs.getInt(KEY_RECO_COUNT + id, baseCount(id))
+        if (done) count-- else count++          // 취소면 -1, 추천이면 +1
+        prefs.edit()
+            .putBoolean(KEY_RECO_DONE + id, !done)   // 추천 상태를 반대로 뒤집어 저장
+            .putInt(KEY_RECO_COUNT + id, count)      // 바뀐 추천수 저장
+            .apply()
+        return count
+    }
 }

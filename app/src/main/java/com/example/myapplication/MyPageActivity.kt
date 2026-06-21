@@ -14,6 +14,7 @@ class MyPageActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = "마이페이지"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)   // 툴바에 '←' 뒤로가기 화살표 표시
 
         setupBottomNav()
     }
@@ -47,4 +48,7 @@ class MyPageActivity : AppCompatActivity() {
         i.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_SINGLE_TOP
         startActivity(i)
     }
+
+    // 툴바의 '←' 뒤로가기 화살표를 눌렀을 때: 이 화면을 닫고 이전 화면으로 돌아간다
+    override fun onSupportNavigateUp(): Boolean { finish(); return true }
 }

@@ -111,5 +111,6 @@
         android:background="@color/bg"
         app:itemIconTint="@color/accent"
         app:itemTextColor="@color/text_white"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_menu" />
 </LinearLayout>

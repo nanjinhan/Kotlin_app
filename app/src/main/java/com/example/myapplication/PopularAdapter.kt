@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.ItemPopularBinding
 
 // 메인 화면 "인기 라면" 가로 스크롤 카드 어댑터
-class PopularAdapter(
+class
+PopularAdapter(
     private val items: List<Ramen>,
     private val onClick: (Ramen) -> Unit
 ) : RecyclerView.Adapter<PopularAdapter.VH>() {

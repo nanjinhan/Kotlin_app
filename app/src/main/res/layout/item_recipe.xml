@@ -70,6 +70,16 @@
                 android:layout_marginTop="2dp"
                 android:textColor="@color/text_gray"
                 android:textSize="12sp" />
+
+            <!-- 추천수 (예: "👍 추천 2,085") — 상세 화면의 추천 버튼과 같은 값을 보여준다 -->
+            <TextView
+                android:id="@+id/tvRecommend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/accent"
+                android:textSize="12sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

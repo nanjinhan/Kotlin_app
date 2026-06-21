@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -47,6 +48,14 @@ class RecipeDetailActivity : AppCompatActivity() {
         if (resId != 0) binding.ivImage.setImageResource(resId)
         else binding.ivImage.setBackgroundColor(Color.parseColor("#F2F2F2"))
 
+        // 추천 영역 초기화: 현재 추천수와 "이미 추천했는지"를 화면에 반영
+        updateRecommendUi()
+        // 추천 버튼 클릭 → 추천/취소를 토글하고 화면을 다시 그린다
+        binding.btnRecommend.setOnClickListener {
+            RecipeManager.toggleRecommend(this, recipeId)
+            updateRecommendUi()
+        }
+
         // "레시피 삭제" 버튼: 실수 방지를 위해 확인 대화상자(AlertDialog)를 띄운 뒤 삭제
         binding.btnDelete.setOnClickListener {
             AlertDialog.Builder(this)
@@ -59,6 +68,21 @@ class RecipeDetailActivity : AppCompatActivity() {
                 .setNegativeButton("취소", null)             // 취소는 아무 동작 없이 닫힘
                 .show()
         }
+    }
+
+    /**
+     * 추천 영역(버튼 + 추천수)을 현재 상태에 맞게 다시 그린다.
+     * - 추천수: "추천 2,085" 처럼 천 단위 콤마를 찍어 표시
+     * - 버튼: 이미 추천했으면 "👍 추천함"(회색), 아직이면 "👍 추천"(주황)
+     */
+    private fun updateRecommendUi() {
+        val count = RecipeManager.getRecommendCount(this, recipeId)
+        val done = RecipeManager.hasRecommended(this, recipeId)
+        binding.tvRecommendCount.text = "추천 ${"%,d".format(count)}"
+        binding.btnRecommend.text = if (done) "👍 추천함" else "👍 추천"
+        // 추천한 상태면 회색, 아니면 주황(accent)으로 버튼 배경색을 바꿔 눌렀는지 한눈에 보이게 함
+        val tint = if (done) Color.parseColor("#9E9E9E") else Color.parseColor("#FF6B2C")
+        binding.btnRecommend.backgroundTintList = ColorStateList.valueOf(tint)
     }
 
     // 툴바의 '←' 뒤로가기: 화면 닫기

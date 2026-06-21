@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -28,13 +29,8 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
         setupDrawer()
 
-        // 오늘의 추천 배너: 별점 높은 라면 중 하나를 보여줌
-        val today = RamenData.list.maxByOrNull { it.rating } ?: RamenData.list[0]
-        binding.tvBannerName.text = today.name
-        binding.tvBannerDesc.text = today.description
-        val bannerRes = resources.getIdentifier(today.imageName, "drawable", packageName)
-        if (bannerRes != 0) binding.ivBanner.setImageResource(bannerRes)
-        binding.bannerBox.setOnClickListener { openDetail(today.name) }
+        // 오늘의 추천 배너는 onResume()에서 매번 새로 구성한다(아래 setupBanner 참고).
+        // → 홈 화면에 들어오거나 다른 화면에서 돌아올 때마다 추천 레시피가 랜덤으로 바뀐다.
 
         // 인기 라면 가로 스크롤 (별점 상위 6개)
         val popular = RamenData.list.sortedByDescending { it.rating }.take(6)
@@ -60,9 +56,58 @@ class MainActivity : AppCompatActivity() {
         setupBottomNav()
     }
 
+    // 오늘의 추천 배너 구성: 사진이 있는 레시피 중 "오늘 날짜" 기준으로 하나를 골라 보여준다.
+    private fun setupBanner() {
+        RecipeManager.seedIfFirst(this)   // 레시피가 비어 있지 않도록 보장(첫 실행 대비)
+        // drawable 에 실제 사진이 있는 레시피만 후보로 추림
+        val withImage = RecipeManager.getAll(this).filter {
+            it.imageName.isNotEmpty() &&
+                resources.getIdentifier(it.imageName, "drawable", packageName) != 0
+        }
+        if (withImage.isNotEmpty()) {
+            // 사진이 있는 레시피 중 하나를 무작위로 고른다.
+            // (이전에는 '날짜' 기준이라 하루 종일 같은 레시피(계란탱 신라면)만 떴음
+            //  → 이제 홈에 들어올 때마다 랜덤으로 바뀐다)
+            val pick = withImage.random()
+            // 별점·추천수는 그 레시피가 다루는 라면의 데이터에서 가져온다
+            val ramen = RamenData.list.firstOrNull { it.name == pick.ramenName }
+            bindBanner(
+                title = pick.title,                                   // 레시피 이름 (예: 계란탱 신라면)
+                intro = pick.tip.ifEmpty { "#${pick.ramenName} 레시피" }, // 한 줄 소개
+                rating = ramen?.rating ?: 4.7,
+                count = ramen?.recommendCount ?: 1500,
+                imageName = pick.imageName
+            )
+            binding.bannerBox.setOnClickListener { openRecipe(pick.id) }
+        } else {
+            // 사진 있는 레시피가 하나도 없으면 별점 1위 라면으로 대체(안전장치)
+            val today = RamenData.list.maxByOrNull { it.rating } ?: RamenData.list[0]
+            bindBanner(today.name, today.description, today.rating, today.recommendCount, today.imageName)
+            binding.bannerBox.setOnClickListener { openDetail(today.name) }
+        }
+    }
+
+    // 배너의 텍스트/별점/추천수/이미지를 한 번에 채운다
+    private fun bindBanner(title: String, intro: String, rating: Double, count: Int, imageName: String) {
+        binding.tvBannerName.text = title
+        binding.tvBannerDesc.text = intro
+        binding.tvBannerRating.text = "★ $rating"
+        // "추천 1,500" 형태(끝의 "명"은 뺐다). 글자 수를 줄여 🔥인기·★별점·추천수가 한 줄에 모두 들어가게 함.
+        binding.tvBannerCount.text = "추천 ${"%,d".format(count)}"
+        val res = resources.getIdentifier(imageName, "drawable", packageName)
+        if (res != 0) binding.ivBanner.setImageResource(res) else binding.ivBanner.setImageDrawable(null)
+    }
+
     private fun openDetail(name: String) {
         val i = Intent(this, RamenDetailActivity::class.java)
         i.putExtra("name", name)
+        startActivity(i)
+    }
+
+    // 배너 클릭 → 그 레시피 상세로 이동
+    private fun openRecipe(id: Long) {
+        val i = Intent(this, RecipeDetailActivity::class.java)
+        i.putExtra("id", id)
         startActivity(i)
     }
 
@@ -79,6 +124,8 @@ class MainActivity : AppCompatActivity() {
         val last = prefs.getString("last_ramen", null)
         binding.tvLast.text = if (last != null) "마지막으로 본 라면: $last" else "아직 본 라면이 없어요"
         binding.bottomNav.selectedItemId = R.id.nav_home
+        // 홈에 들어올 때마다 오늘의 추천 배너를 새 레시피로 갱신(랜덤)
+        setupBanner()
     }
 
     // 드로어 메뉴 클릭 처리
@@ -88,8 +135,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.d_dex -> startActivity(Intent(this, RamenListActivity::class.java))
                 R.id.d_recipe -> startActivity(Intent(this, RecipeListActivity::class.java))
                 R.id.d_fav -> startActivity(Intent(this, FavoriteActivity::class.java))
-                R.id.d_guide -> showGuide()   // 맵기 색 안내
-                R.id.d_info -> showInfo()      // 앱 정보
+                R.id.d_guide -> showGuide()          // 맵기 색 안내
+                R.id.d_lang -> showLanguageDialog()  // 언어 선택(데모용 — 실제 전환은 안 함)
+                R.id.d_info -> showInfo()            // 앱 정보
             }
             binding.drawerLayout.closeDrawers()
             true
@@ -102,6 +150,31 @@ class MainActivity : AppCompatActivity() {
             .setTitle("맵기 색 안내")
             .setMessage("도감 카드의 테두리 색으로 맵기를 표현합니다.\n\n🟢 초록 : 순한맛\n🟡 라임 : 약간 매움\n🟠 주황 : 보통\n🔴 빨강 : 매움\n🔴 진빨강 : 아주 매움")
             .setPositiveButton("확인", null)
+            .show()
+    }
+
+    /**
+     * 언어 선택 다이얼로그(데모용).
+     *
+     * ▸ 실제로 앱의 언어(로케일)를 바꾸지는 않는다. "외국인도 쓸 수 있어 보이게" 하는 형식상 기능이다.
+     * ▸ 목록에서 언어를 고르면 토스트로 "선택됨"만 안내한다.
+     *   (진짜 다국어 지원을 하려면 res/values-en, values-ja 등 문자열 리소스와
+     *    AppCompatDelegate.setApplicationLocales() 적용이 필요 — 추후 확장 포인트)
+     */
+    private fun showLanguageDialog() {
+        // 화면에 보여줄 언어 목록(표시용 라벨)
+        val languages = arrayOf("한국어", "English", "日本語", "中文")
+        AlertDialog.Builder(this)
+            .setTitle("언어 / Language")
+            .setItems(languages) { _, which ->
+                // which = 사용자가 고른 항목의 인덱스
+                Toast.makeText(
+                    this,
+                    "${languages[which]} 선택됨 (데모 — 실제 전환은 추후 지원)",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            .setNegativeButton("닫기", null)
             .show()
     }
 

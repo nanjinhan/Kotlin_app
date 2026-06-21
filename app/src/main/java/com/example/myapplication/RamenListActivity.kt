@@ -18,6 +18,7 @@ class RamenListActivity : AppCompatActivity() {
         binding = ActivityRamenListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)   // 툴바에 '←' 뒤로가기 화살표 표시
 
         // 메인 카테고리 아이콘에서 넘어온 경우 그 분류로 거른다(없으면 전체).
         val category = intent.getStringExtra("category")
@@ -70,4 +71,7 @@ class RamenListActivity : AppCompatActivity() {
         i.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_SINGLE_TOP
         startActivity(i)
     }
+
+    // 툴바의 '←' 뒤로가기 화살표를 눌렀을 때: 이 화면을 닫고 이전 화면으로 돌아간다
+    override fun onSupportNavigateUp(): Boolean { finish(); return true }
 }

@@ -47,6 +47,9 @@ class RecipeAdapter(
         holder.binding.tvTitle.text = r.title           // 제목
         holder.binding.tvRamen.text = "#${r.ramenName}"  // 어떤 라면인지 (# 해시태그처럼 표시)
         holder.binding.tvAuthor.text = "by ${r.author}"  // 작성자
+        // 추천수: 상세 화면 추천 버튼과 같은 저장소(RecipeManager)에서 읽어와 "👍 추천 2,085" 형태로 표시
+        val reco = RecipeManager.getRecommendCount(ctx, r.id)
+        holder.binding.tvRecommend.text = "👍 추천 ${"%,d".format(reco)}"
 
         // 썸네일 이미지 처리:
         // imageName 이 비어있지 않으면 같은 이름의 drawable 리소스 id 를 찾는다. 없으면 0.

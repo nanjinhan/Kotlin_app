@@ -44,14 +44,17 @@
                     android:background="@drawable/banner_bg">
 
                     <!-- 배너 오른쪽 라면 이미지 -->
+                    <!-- 폭을 150dp → 128dp 로 줄였다. 사진을 살짝 줄인 만큼 왼쪽 글자 영역이 넓어져
+                         아래 "🔥인기 · ★별점 · 추천N" 한 줄이 잘리지 않고 다 들어간다. -->
                     <ImageView
                         android:id="@+id/ivBanner"
-                        android:layout_width="150dp"
+                        android:layout_width="128dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:scaleType="centerCrop" />
 
-                    <!-- 배너 왼쪽 텍스트: 이미지 왼쪽 영역으로 폭을 제한해 사진 위로 겹치지 않게 함 -->
+                    <!-- 배너 왼쪽 텍스트: 이미지 왼쪽 영역으로 폭을 제한해 사진 위로 겹치지 않게 함.
+                         padding 을 20dp → 14dp 로 줄여 글자를 왼쪽으로 살짝 당기고 가로 공간을 더 확보. -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -59,7 +62,7 @@
                         android:layout_toStartOf="@id/ivBanner"
                         android:orientation="vertical"
                         android:gravity="center_vertical"
-                        android:padding="20dp">
+                        android:padding="14dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -78,9 +81,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:textColor="@color/text_white"
-                            android:textSize="22sp"
+                            android:textSize="20sp"
                             android:textStyle="bold"
-                            android:maxLines="2"
+                            android:singleLine="true"
+                            android:maxLines="1"
                             android:ellipsize="end" />
 
                         <TextView
@@ -89,9 +93,53 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:textColor="#7A6A5E"
-                            android:textSize="13sp"
-                            android:maxLines="2"
+                            android:textSize="12sp"
+                            android:singleLine="true"
+                            android:maxLines="1"
                             android:ellipsize="end" />
+
+                        <!-- 인기 칩 + 별점 + 추천수 한 줄.
+                             세 항목을 한 줄에 담기 위해 칩 사이 간격(marginStart)을 8dp → 6dp 로 줄이고,
+                             칩 안쪽 좌우 여백도 8dp → 7dp 로 조금 줄였다. -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <!-- 🔥 인기 (빨강 버튼 모양) -->
+                            <TextView
+                                android:id="@+id/tvBannerTag"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/chip_spicy"
+                                android:paddingHorizontal="7dp"
+                                android:paddingVertical="3dp"
+                                android:text="🔥 인기"
+                                android:textColor="@color/red_point"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <!-- ★ 별점 (노란 별) -->
+                            <TextView
+                                android:id="@+id/tvBannerRating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:textColor="#F5A623"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <!-- 추천수 -->
+                            <TextView
+                                android:id="@+id/tvBannerCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:textColor="#7A6A5E"
+                                android:textSize="11sp" />
+                        </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -183,6 +231,7 @@
             android:background="@color/card_white"
             app:itemIconTint="@color/red_point"
             app:itemTextColor="@color/text_white"
+            app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_nav_menu" />
     </LinearLayout>
 
